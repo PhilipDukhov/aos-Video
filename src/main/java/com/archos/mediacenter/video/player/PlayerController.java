@@ -1894,7 +1894,11 @@ public class PlayerController implements View.OnTouchListener, OnGenericMotionLi
                 return true;
             }
 
-            if (keyCode == KeyEvent.KEYCODE_DPAD_UP || (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU))  {
+            if (
+                    keyCode == KeyEvent.KEYCODE_DPAD_UP
+                            || keyCode == KeyEvent.KEYCODE_MEDIA_AUDIO_TRACK
+                            || (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU)
+            )  {
                 if (!mTVMenuAdapter.isCreated() && mContext instanceof PlayerActivity) {
                     ((PlayerActivity) mContext).createPlayerTVMenu();
                 }
@@ -2005,14 +2009,6 @@ public class PlayerController implements View.OnTouchListener, OnGenericMotionLi
                                 return false;
                             }
                             break;
-                        case KeyEvent.KEYCODE_MEDIA_PLAY:
-                            log.debug("onKey: play");
-                            if (!Player.sPlayer.isPlaying()) {
-                                Player.sPlayer.start(PlayerController.STATE_NORMAL);
-                                updatePausePlay();
-                                show();
-                            }
-                            return true;
                         case KeyEvent.KEYCODE_MEDIA_PAUSE:
                             if (Player.sPlayer.isPlaying()) {
                                 log.debug("onKey: pause");
@@ -2024,6 +2020,7 @@ public class PlayerController implements View.OnTouchListener, OnGenericMotionLi
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
                         case KeyEvent.KEYCODE_HEADSETHOOK:
+                        case KeyEvent.KEYCODE_MEDIA_PLAY:
                         case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                         case KeyEvent.KEYCODE_P:
                         case KeyEvent.KEYCODE_SPACE:
