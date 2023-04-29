@@ -1801,29 +1801,6 @@ public class PlayerActivity extends AppCompatActivity implements PlayerControlle
         if (mPlayerController != null && mPlayerController.getTVMenuAdapter() != null) {
             TVMenuAdapter tma = mPlayerController.getTVMenuAdapter();
 
-            //[subtitles]
-            mSubtitleTVCardView = tma.createAndAddView(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tv_subtitles, null),
-                    getResources().getString(R.string.menu_subtitles));
-            mSubtitleTVMenu = tma.createTVMenu();
-            mSubtitleTVMenu.setOnItemClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    int pos = mSubtitleTVMenu.getItemPostion(v);
-                    if (pos != -1) {
-                        if (onTrackSelected(mSubtitleInfoController, pos, "", "")) {
-                            if (v instanceof Checkable) {
-                                mSubtitleTVMenu.unCheckAll();
-                                ((Checkable) v).setChecked(true);
-                            }
-                        }
-                    }
-                }
-            });
-            mSubtitleTVCardView.addOtherView(mSubtitleTVMenu);
-            refreshSubtitleTVMenu();
-            //[/subtitles]
-
             //[audiotrack]
             mAudioTracksTVCardView = tma.createAndAddView(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tv_languages, null),
                     getResources().getString(R.string.menu_audio));
@@ -1846,6 +1823,29 @@ public class PlayerActivity extends AppCompatActivity implements PlayerControlle
             mAudioTracksTVCardView.addOtherView(mAudioTracksTVMenu);
             refreshAudioTracksTVMenu();
             //[/audiotrack]
+
+            //[subtitles]
+            mSubtitleTVCardView = tma.createAndAddView(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tv_subtitles, null),
+                    getResources().getString(R.string.menu_subtitles));
+            mSubtitleTVMenu = tma.createTVMenu();
+            mSubtitleTVMenu.setOnItemClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    int pos = mSubtitleTVMenu.getItemPostion(v);
+                    if (pos != -1) {
+                        if (onTrackSelected(mSubtitleInfoController, pos, "", "")) {
+                            if (v instanceof Checkable) {
+                                mSubtitleTVMenu.unCheckAll();
+                                ((Checkable) v).setChecked(true);
+                            }
+                        }
+                    }
+                }
+            });
+            mSubtitleTVCardView.addOtherView(mSubtitleTVMenu);
+            refreshSubtitleTVMenu();
+            //[/subtitles]
 
             if (isStereoEffectOn()) {
                 TVCardView cv = tma.createAndAddView(ResourcesCompat.getDrawable(getResources(), R.drawable.tv_3d, null), null,
